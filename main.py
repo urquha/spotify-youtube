@@ -1,42 +1,35 @@
-print("Welcome to NeuralNine YouTube Downloader and Converter v0.2 Alpha")
-print("Loading...")
-
-import pytube
+from spotify import get_playlist_song_urls
 import youtube_downloader
 import file_converter
+import os
+from mutagen.easyid3 import EasyID3
 
-print('''
-What do you want?
+def main():
+    # id = input("Please input playlist Id\n")
+    id = '1f001wcO6C52q5IT7yybxw'
+    song_data = get_playlist_song_urls(id)
+    try:
+        os.mkdir('downloads')
+    except:
+        print("downloads exists already.")
+    for song in song_data:
+        artists = "_".join(song['artists'])
+        song_name = song['track_name']
+        folder_path = f"downloads/{artists}-{song_name}/"
+        try:
+            os.mkdir(folder_path)
+        except:
+            print(folder_path + " exists already.")
+        for link in song['links']:
+            filename = youtube_downloader.download_video(link, 'low', folder_path)
+            file_converter.convert_to_mp3(folder_path + filename)
+            os.remove(folder_path + filename)
+            audio = EasyID3((folder_path + filename).replace(".mp4", ".mp3"))
+            audio['title'] = song_name
+            audio['artist'] = artists
+            audio['album'] = song['album']
+            audio.save()
 
-(1) Download YouTube Videos Manually
-(2) Download a YouTube Playlist
-(3) Download YouTube Videos and Convert Into MP3
 
-Downloading copyrighted YouTube videos is illegal!
-I am not responsible for your downloads! Go at your own risk!
-
-Copyright (c) NeuralNine 2020
-''')
-
-choice = input("Choice: ")
-
-if choice == "1" or choice == "2":
-    quality = input("Please choose a quality (low, medium, high, very high):")
-    if choice == "2":
-        link = input("Enter the link to the playlist: ")
-        print("Downloading playlist...")
-        youtube_downloader.download_playlist(link, quality)
-        print("Download finished!")
-    if choice == "1":
-        links = youtube_downloader.input_links()
-        for link in links:
-            youtube_downloader.download_video(link, quality)
-elif choice == "3":
-    links = youtube_downloader.input_links()
-    for link in links:
-        print("Downloading...")
-        filename = youtube_downloader.download_video(link, 'low')
-        print("Converting...")
-        file_converter.convert_to_mp3(filename)
-else:
-    print("Invalid input! Terminating...")
+if __name__ == "__main__":
+    main()

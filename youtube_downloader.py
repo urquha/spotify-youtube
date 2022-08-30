@@ -1,10 +1,10 @@
 import pytube
 
-def download_video(url, resolution):
+def download_video(url, resolution, output_path):
     itag = choose_resolution(resolution)
     video = pytube.YouTube(url)
     stream = video.streams.get_by_itag(itag)
-    stream.download()
+    stream.download(output_path=output_path)
     return stream.default_filename
 
 def download_videos(urls, resolution):

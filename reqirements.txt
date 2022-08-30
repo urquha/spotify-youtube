@@ -1,0 +1,5 @@
+moviepy
+pytube
+spotipy
+bs4
+mutagen

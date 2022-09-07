@@ -3,6 +3,7 @@ import youtube_downloader
 import file_converter
 import os
 from mutagen.easyid3 import EasyID3
+from dotenv import load_dotenv
 
 def main():
     # id = input("Please input playlist Id\n")
@@ -32,4 +33,5 @@ def main():
 
 
 if __name__ == "__main__":
+    load_dotenv()
     main()

@@ -23,10 +23,17 @@ def get_playlist_song_urls(id):
         tracks_list.append((name, artists, album))
 
     tracks_links_list = []
+
     # Instantiate a webdriver
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    for track in tracks_list:
+    try:
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    except:
+        print('Trying executable path')
+        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+    
+    for index, track in enumerate(tracks_list):
         name = track[0]
+        print(f"{index} of {len(tracks_list}")
         artists = "+".join(track[1])
         url = f"https://www.youtube.com/results?search_query={name}+{artists}".replace(" ", "+")
        

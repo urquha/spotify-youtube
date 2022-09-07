@@ -3,3 +3,5 @@ pytube
 spotipy
 bs4
 mutagen
+selenium
+webdriver-manager

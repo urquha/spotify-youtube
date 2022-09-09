@@ -1,8 +1,12 @@
 # spotify-youtube
 Playing with the spotify api and integrating with youtube
 
-Both "SPOTIPY_CLIENT_ID" and "SPOTIPY_CLIENT_SECRET" environment variables need to be set with your spotify developer creds
+Both "SPOTIPY_CLIENT_ID" and "SPOTIPY_CLIENT_SECRET" environment variables need to be set with your [spotify developer creds](https://developer.spotify.com/dashboard/login) (You can put these in the .env file, or set them on the cli)
 
+Install dependencies with `pip install -r requirements.txt` to 
+Run the code with `python main.py`
+
+The commands could be pip3 or python3 depending on how your python is set up.
 ## youtube-downloader-converter
 Stolen from NeuralNine
 

@@ -35,7 +35,7 @@ def get_playlist_song_urls(id):
     
     for index, track in enumerate(tracks_list):
         name = track[0]
-        print(f"{index} of {len(tracks_list}")
+        print(f"{index} of {len(tracks_list)}")
         artists = "+".join(track[1])
         url = f"https://www.youtube.com/results?search_query={name}+{artists}".replace(" ", "+")
        

@@ -9,9 +9,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def get_playlist_song_urls(id):
     spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+    playlist = spotify.playlist(id)
+    folder_name = (playlist['name'] + playlist['owner']['display_name']).replace(" ", "-")
     results = spotify.playlist_tracks(id)
     tracks = results['items']
-
+    
     tracks_list = []
     for track in tracks:
         name = track['track']['name']
@@ -40,7 +42,7 @@ def get_playlist_song_urls(id):
         tracks_links_list.append({"track_name": name, "artists": track[1], 'album': track[2], "links": links})
     driver.close()
 
-    return tracks_links_list
+    return tracks_links_list, folder_name
 
 
 def connect_to_url(url): #Opening up connecting, grabbing the URL
@@ -50,4 +52,4 @@ def connect_to_url(url): #Opening up connecting, grabbing the URL
     return(page_html)
 
 if __name__ == "__main__":
-    get_playlist_song_urls()
+    get_playlist_song_urls("6GLssFV1ZY0rZT68oITRXm?si")

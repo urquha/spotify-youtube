@@ -6,16 +6,17 @@ from mutagen.easyid3 import EasyID3
 
 def main():
     # id = input("Please input playlist Id\n")
-    id = '1f001wcO6C52q5IT7yybxw'
-    song_data = get_playlist_song_urls(id)
+    id = '6GLssFV1ZY0rZT68oITRXm'
+    song_data, playlist_name = get_playlist_song_urls(id)
+    folder_path = f"downloads/{playlist_name}"
     try:
-        os.mkdir('downloads')
+        os.mkdir(folder_path)
     except:
-        print("downloads exists already.")
+        print(f"{folder_path} exists already.")
     for song in song_data:
         artists = "_".join(song['artists'])
         song_name = song['track_name']
-        folder_path = f"downloads/{artists}-{song_name}/"
+        folder_path = f"{folder_path}-{song_name}/"
         try:
             os.mkdir(folder_path)
         except:

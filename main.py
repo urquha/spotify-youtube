@@ -9,15 +9,15 @@ def main():
     # id = input("Please input playlist Id\n")
     id = '6GLssFV1ZY0rZT68oITRXm'
     song_data, playlist_name = get_playlist_song_urls(id)
-    folder_path = f"downloads/{playlist_name}"
+    og_folder_path = f"downloads/{playlist_name}"
     try:
-        os.mkdir(folder_path)
+        os.mkdir(og_folder_path)
     except:
-        print(f"{folder_path} exists already.")
+        print(f"{og_folder_path} exists already.")
     for song in song_data:
         artists = "_".join(song['artists'])
         song_name = song['track_name']
-        folder_path = f"{folder_path}-{song_name}/"
+        folder_path = f"{og_folder_path}/{song_name}-{artists}/".replace(" ", "-")
         try:
             os.mkdir(folder_path)
         except:
